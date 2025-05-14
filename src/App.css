@@ -1,0 +1,246 @@
+.page {
+  /* margin: 100px; */
+  padding: 120px;
+  width: 100vw;
+}
+
+.mypage {
+  display: flex;
+  flex-direction: column; /* 수직 정렬 */
+  justify-content: center; /* 세로 방향 가운데 */
+  align-items: center; /* 가로 방향 가운데 */
+  text-align: center;
+}
+
+.mypage-title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+nav {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+  width: 100%;
+  background-color: white;
+  /* height: 50px; */
+  overflow: auto;
+  padding: 0 20px;
+  /* border-bottom: black solid 1px; */
+  z-index: 50;
+}
+
+.middle-text {
+  vertical-align: middle;
+}
+
+.nav-text {
+  font-size: 40px;
+  margin: 10px;
+  font-weight: bold;
+}
+
+footer {
+  width: 100vw;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  border-top: darkgray solid 1px;
+}
+
+.footer-text {
+  margin-left: 30px;
+  font-size: 12px;
+  color: rgb(60, 60, 60);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 기본 5열 고정 */
+  gap: 10px;
+  margin-top: 20px;
+}
+
+@media (max-width: 1100px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card-skeleton {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 3px;
+  padding: 0;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+  background-color: lightgray;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.card {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 3px;
+  padding: 0;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.card .thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.card:hover .card-overlay {
+  opacity: 1; /* 카드 호버 시 오버레이 보이기 */
+  pointer-events: auto; /* 오버레이 위에서 이벤트 발생 가능하도록 */
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  line-height: 1.3;
+}
+
+.card-date,
+.card-likes {
+  font-size: 13px; /* 날짜, 좋아요 폰트 크기 */
+  margin: 2px 0;
+  display: flex; /* 아이콘과 텍스트 정렬을 위해 */
+  align-items: center;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.menu-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex-grow: 1;
+  margin: 0 20px;
+  width: 200px;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* LP Detail Page */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.lp-title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+.lp-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.lp-disc {
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  position: relative;
+
+  animation: spin 5s linear infinite;
+}
+
+.lp-center-label {
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid rgb(158, 158, 158);
+  box-shadow: inset 0 4px 5px rgba(0, 0, 0, 0.4);
+}
