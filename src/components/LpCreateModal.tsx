@@ -82,6 +82,7 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
             onClose();
           },
           onError: (error) => {
+            alert("LP 등록 실패");
             console.error("LP 등록 실패", error);
           },
         }
