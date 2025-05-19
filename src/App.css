@@ -244,3 +244,50 @@ footer {
   border: 3px solid rgb(158, 158, 158);
   box-shadow: inset 0 4px 5px rgba(0, 0, 0, 0.4);
 }
+
+/* Lp Create Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* 검은색 + 80% 불투명도 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-img {
+  display: flex;
+  justify-content: center; /* 수평 정렬 */
+  align-items: center; /* 수직 정렬 (필요 시) */
+  width: 200px; /* 부모 form 전체 너비를 차지하게 */
+  margin: 0 auto 30px auto; /* form 내부에서 가로 가운데 */
+}
+.modal-img img {
+  max-width: 100%;
+  height: auto;
+}
+
+.modal-form {
+  display: flex;
+  gap: 8px;
+}
+
+.modal-input {
+  flex-grow: 1;
+  padding: 4px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  height: 40px;
+  padding-left: 10px;
+}
+
+.add-button {
+  margin: 5px 0;
+  flex-grow: 1;
+  padding: 8px;
+  border-radius: 5px;
+  color: black;
+  background-color: #abcde1;
+  font-weight: 600;
+}

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { PAGINATION_ORDER } from "../enums/common";
 
 // Menu 컴포넌트가 받을 props 타입 정의
@@ -14,6 +15,8 @@ const Menu: React.FC<MenuProps> = ({
   order,
   handleOrderChange,
 }) => {
+  
+
   return (
     <div className="menu-container">
       <span className="material-symbols-outlined">search</span>
@@ -30,6 +33,7 @@ const Menu: React.FC<MenuProps> = ({
             fontWeight: order === PAGINATION_ORDER.desc ? "bold" : "normal",
             marginRight: "5px",
           }}
+          className="hover:cursor-pointer"
         >
           최신 순
         </button>
@@ -38,10 +42,12 @@ const Menu: React.FC<MenuProps> = ({
           style={{
             fontWeight: order === PAGINATION_ORDER.asc ? "bold" : "normal",
           }}
+          className="hover:cursor-pointer"
         >
           오래된 순
         </button>
       </div>
+
     </div>
   );
 };

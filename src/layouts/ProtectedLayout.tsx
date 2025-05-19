@@ -1,9 +1,10 @@
 // import React from 'react';
 
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { Navigate, Outlet } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { Sidebar } from "lucide-react";
 
 const ProtectedLayout = () => {
   const { accessToken } = useAuth();
@@ -18,6 +19,7 @@ const ProtectedLayout = () => {
   return (
     <div className="flex flex-col">
       <Navbar />
+      <Sidebar />
       <main className="">
         <Outlet />
       </main>

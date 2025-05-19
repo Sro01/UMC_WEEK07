@@ -2,13 +2,13 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import NotFoundPage from "./pages/NotFoundPage";
 import LoginPage from "./pages/LoginPage";
-import HomeLayout from "./assets/layouts/HomeLayout";
+import HomeLayout from "./layouts/HomeLayout";
 import Homepage from "./pages/Homepage";
 import SignupPage from "./pages/SignupPage";
 import Mypage from "./pages/Mypage";
 import { AuthProvider } from "./context/AuthContext";
 import { RouteObject } from "react-router-dom";
-import ProtectedLayout from "./assets/layouts/ProtectedLayout";
+import ProtectedLayout from "./layouts/ProtectedLayout";
 import GoogleLoginRedirectPage from "./pages/GoogleLoginRedirectPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -47,7 +47,7 @@ const protectedRoutes: RouteObject[] = [
         element: <Mypage />,
       },
       {
-        path: "lp/:LPid",
+        path: "lp/:lpId",
         element: <LpDetailPage />,
       },
     ],

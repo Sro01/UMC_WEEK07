@@ -5,6 +5,8 @@ import useGetInfiniteLpList from "../hooks/queries/useGetInfiniteLpList";
 import { useInView } from "react-intersection-observer";
 import LpCard from "../components/LpCard/LpCard";
 import LpCardSkeletonList from "../components/LpCard/LpCardSkeletonList";
+import { SquarePlus } from "lucide-react";
+import LpCreateModal from "../components/LpCreateModal.tsx";
 
 const Homepage = () => {
   const [search, setSearch] = useState("");
@@ -41,6 +43,8 @@ const Homepage = () => {
     setOrder(newOrder);
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="page">
       <Menu
@@ -49,6 +53,22 @@ const Homepage = () => {
         order={order}
         handleOrderChange={handleOrderChange}
       />
+
+      <button
+        className="hover:cursor-pointer ml-5"
+        onClick={() => {
+          setIsModalOpen(true);
+        }}
+      >
+        <SquarePlus color={"black"} fill={"transparent"} />
+      </button>
+
+      {isModalOpen && (
+        <LpCreateModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
 
       <div className="grid-container">
         {isPending && <LpCardSkeletonList count={20} />}

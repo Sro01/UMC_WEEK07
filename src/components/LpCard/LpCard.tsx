@@ -9,7 +9,7 @@ interface LpCardProps {
 const LpCard = ({ lp }: LpCardProps) => {
   const navigate = useNavigate();
   const handleCardClick = (lpId: number) => {
-    navigate(`/lp/${lpId}`); // /lp/:LPid 경로로 이동
+    navigate(`/lp/${lpId}`); // /lp/:lpId 경로로 이동
   };
 
   const formatDate = (dateString: Date | string) => {
