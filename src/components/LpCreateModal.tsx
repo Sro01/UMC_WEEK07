@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { X } from "lucide-react";
+import usePostLp from "../hooks/mutation/usePostLp";
 
 interface LpCreateModalProps {
   isOpen: boolean;
@@ -40,6 +41,38 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+
+  const { mutate, isPending } = usePostLp();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    mutate(
+      {
+        title,
+        content,
+        thumbnail,
+        tags,
+        published: true,
+      },
+      {
+        onSuccess: () => {
+          alert("LP 등록 성공");
+          setTitle("");
+          setContent("");
+          setThumbnail("");
+          setTags([]);
+        },
+        onError: (error) => {
+          console.error("LP 등록 실패", error);
+        },
+      }
+    );
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -55,10 +88,7 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
           </button>
         </div>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            onClose();
-          }}
+          onSubmit={handleSubmit}
           className="flex flex-col gap-3 modal-form"
         >
           {/* 이미지 업로드 */}
@@ -80,14 +110,17 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
           {/* 입력 */}
           <input
             type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="LP Name"
             required
             className="modal-input"
           />
-          <textarea placeholder="LP Content" required className="modal-input" />
-          <input
-            type="text"
-            placeholder="LP Cover"
+
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="LP Content"
             required
             className="modal-input"
           />
@@ -114,7 +147,7 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="bg-gray-200 px-3 py-1 rounded-full flex justify-between items-center gap-1 text-sm max-w-full w-fit max-w-[100%]"
+                className="bg-gray-200 px-3 py-1 rounded-full flex justify-between items-center gap-1 text-sm w-fit max-w-[100%]"
               >
                 <span className="overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px]">
                   {tag}
@@ -127,8 +160,12 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           <div className="flex justify-end gap-2 mt-4">
-            <button type="submit" className="add-button hover:cursor-pointer">
-              Add LP
+            <button
+              type="submit"
+              disabled={isPending}
+              className="add-button hover:cursor-pointer"
+            >
+              {isPending ? "등록 중..." : "Add LP"}
             </button>
           </div>
         </form>

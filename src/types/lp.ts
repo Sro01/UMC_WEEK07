@@ -48,3 +48,11 @@ export type ResponseLikeLpDto = CommonResponse<{
   userId: number;
   lpId: number;
 }>;
+
+export type NewLpDetail = {
+  title: string;
+  content: string;
+  thumbnail: string;
+  tags: string[];
+  published: boolean;
+};

@@ -1,5 +1,5 @@
 import { PaginationDto } from "../types/common";
-import { ResponseLpListDto } from "../types/lp";
+import { NewLpDetail, ResponseLpListDto } from "../types/lp";
 import { axiosInstance } from "./axios";
 import {
   RequestLpDetailDto,
@@ -41,4 +41,10 @@ export const deleteLike = async ({
   const { data } = await axiosInstance.delete(`/v1/lps/${lpId}/likes`);
 
   return data;
+};
+
+export const postLp = async (data: NewLpDetail) => {
+  console.log("New LP data", data);
+  const response = await axiosInstance.post("/v1/lps", data); // 실제 API 경로로 변경
+  return response.data;
 };
