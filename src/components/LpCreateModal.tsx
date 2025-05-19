@@ -60,7 +60,7 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
       let uploadedUrl = "";
 
       if (thumbnailFile) {
-        uploadedUrl = await postImage(thumbnailFile, accessToken);
+        uploadedUrl = await postImage(thumbnailFile, accessToken ?? undefined);
       } else {
         uploadedUrl = "/images/me-again-cover.jpeg";
       }
