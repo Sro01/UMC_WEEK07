@@ -6,8 +6,7 @@ import {
   ResponseLpDetailDto,
   ResponseLikeLpDto,
 } from "../types/lp";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import { LOCAL_STORAGE_KEY } from "../constants/key";
+import { useAuth } from "../context/AuthContext";
 
 export const getLpList = async (
   paginationDto: PaginationDto
@@ -52,8 +51,7 @@ export const postLp = async (data: NewLpDetail) => {
 };
 
 export const postImage = async (file: File): Promise<string> => {
-  const { getItem } = useLocalStorage(LOCAL_STORAGE_KEY.accessToken);
-  const accessToken = getItem();
+  const accessToken = useAuth();
   const formData = new FormData();
   formData.append("file", file);
 
@@ -66,4 +64,14 @@ export const postImage = async (file: File): Promise<string> => {
   }
 
   return response.data.data.imageUrl; // 응답에서 imageUrl 추출
+};
+
+export const patchLp = async ({ lpId, data }: { lpId: number; data: any }) => {
+  const response = await axiosInstance.patch(`/v1/lps/${lpId}`, data);
+  return response.data;
+};
+
+export const deleteLp = async (lpId: number) => {
+  const response = await axiosInstance.delete(`/v1/lps/${lpId}`);
+  return response.data;
 };

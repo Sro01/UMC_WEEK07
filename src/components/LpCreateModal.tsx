@@ -154,10 +154,10 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
               onChange={(e) => setTagInput(e.target.value)}
             />
             <button
-              className="text-black bg-gray-300 p-2 rounded hover:cursor-pointer"
+              className="text-[#444] bg-gray-300 py-2 px-4 rounded hover:cursor-pointer font-semibold"
               onClick={handleAddTag}
             >
-              ADD
+              +
             </button>
           </div>
 

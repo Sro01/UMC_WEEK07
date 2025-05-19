@@ -56,3 +56,4 @@ export type NewLpDetail = {
   tags: string[];
   published: boolean;
 };
+

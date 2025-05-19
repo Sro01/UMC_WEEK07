@@ -287,7 +287,196 @@ footer {
   flex-grow: 1;
   padding: 8px;
   border-radius: 5px;
-  color: black;
-  background-color: #abcde1;
+  color: white;
+  background-color: #698fb9;
+  font-weight: 600;
+  border: 2px solid transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-button:hover {
+  color: #698fb9;
+  background-color: white;
+  border: #698fb9 2px solid;
+}
+
+.add-lp-button {
+  margin: 5px 0;
+  padding: 6px 10px;
+  border-radius: 5px;
+  color: #698fb9;
+  border: #698fb9 2px solid;
+  font-weight: 600;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-lp-button:hover {
+  color: white;
+  background-color: #698fb9;
+}
+
+/* Comment Form */
+.comment-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch; /* 내부 요소를 동일 높이로 맞춤 */
+  gap: 8px;
+  margin: 30px 0;
+}
+
+.comment-form textarea {
+  flex: 1;
+  resize: none;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+.comment-form button {
+  padding: 0 16px;
+  background-color: #698fb9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  white-space: nowrap;
+  height: 50px;
+  box-sizing: border-box;
+  font-weight: 600;
+}
+
+/* Comment List */
+.comment-list {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  /* gap: 16px; */
+}
+
+.comment-item {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 20px 15px;
+}
+
+.comment-left {
+  flex: 0 0 48px;
+  margin-right: 15px;
+}
+
+.comment-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comment-avatar.placeholder {
+  background-color: #ccc;
+}
+
+.comment-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-author {
+  font-weight: bold;
+}
+
+.comment-content {
+  margin-top: 8px;
+}
+
+.comment-edit-textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  resize: vertical;
+}
+
+.comment-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.comment-button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment-button.cancel {
+  background-color: #e0e0e0;
+}
+
+.comment-button.save {
+  background-color: #698fb9;
+  color: white;
+}
+
+.comment-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.comment-action {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* LP Detail Page */
+.lp-detail-page {
+  padding: 120px 300px;
+  width: 100vw;
+}
+
+.author-info {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 0px 20px 20px 20px;
+  border-bottom: solid 1px #ccc;
+  gap: 20px;
+}
+
+.author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-avatar.placeholder {
+  background-color: #ccc;
+}
+
+.like-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  border: #777 solid 1.5px;
+  border-radius: 10px;
+  width: 100px;
+  padding: 0px 20px 8px 20px;
+}
+
+.like-count {
   font-weight: 600;
 }

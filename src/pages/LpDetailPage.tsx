@@ -5,11 +5,13 @@ import useGetMyInfo from "../hooks/queries/useGetMyInfo.ts";
 import { useAuth } from "../context/AuthContext.tsx";
 import usePostLike from "../hooks/mutation/usePostLike.ts";
 import useDeleteLike from "../hooks/mutation/useDeleteLike.ts";
-
+import CommentList from "../components/Comments/CommentList.tsx";
+import CommentForm from "../components/Comments/CommentForm.tsx";
+// import usePatchLp from "../hooks/mutation/usePatchLp";
+// import useDeleteLp from "../hooks/mutation/useDeleteLp";
+// import { useNavigate } from "react-router-dom";
 
 const LpDetailPage = () => {
-  
-
   const { lpId } = useParams(); // URL 파라미터에서 lpId 추출
   const { accessToken } = useAuth();
 
@@ -46,28 +48,53 @@ const LpDetailPage = () => {
     return <div className="page">Error!</div>;
   }
 
+  // const navigate = useNavigate();
+  // const { mutate: patchMutate } = usePatchLp();
+  // const { mutate: deleteMutate } = useDeleteLp();
+
   return (
-    <div className="page">
-      <h1 className="lp-title">{lp.data.title}</h1>
-      <div className="lp-wrapper">
+    <div className="lp-detail-page">
+      <div className="flex flex-col items-center justify-normal">
+        <div className="author-info flex items-center gap-2">
+          {lp.data.author.avatar ? (
+            <img
+              src={lp.data.author.avatar}
+              alt="프로필 이미지"
+              className="author-avatar"
+            />
+          ) : (
+            <div className="author-avatar placeholder" />
+          )}
+          <p className="font-semibold">{lp.data.author.name}</p>
+        </div>
+
+        <h1 className="lp-title">{lp.data.title}</h1>
+        <div className="lp-wrapper">
+          <div
+            className="lp-disc"
+            style={{ backgroundImage: `url(${lp.data.thumbnail})` }}
+          >
+            <div className="lp-center-label"></div>
+          </div>
+        </div>
+        <p>{lp.data.content}</p>
+
         <div
-          className="lp-disc"
-          style={{ backgroundImage: `url(${lp.data.thumbnail})` }}
+          className="like-box hover:cursor-pointer"
+          onClick={isLiked ? handleDislike : handleLike}
         >
-          <div className="lp-center-label"></div>
+          <button className="mt-3">
+            <Heart
+              color={isLiked ? "red" : "black"}
+              fill={isLiked ? "red" : "transparent"}
+            />
+          </button>
+          <p className="like-count">{lp.data.likes?.length || 0}</p>
         </div>
       </div>
-      <p>{lp.data.content}</p>
 
-      <br />
-      <p>작성자: {lp.data.author.name}</p>
-
-      <button onClick={isLiked ? handleDislike : handleLike}>
-        <Heart
-          color={isLiked ? "red" : "black"}
-          fill={isLiked ? "red" : "transparent"}
-        />
-      </button>
+      <CommentForm />
+      <CommentList />
     </div>
   );
 };

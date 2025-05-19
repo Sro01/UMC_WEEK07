@@ -5,7 +5,6 @@ import useGetInfiniteLpList from "../hooks/queries/useGetInfiniteLpList";
 import { useInView } from "react-intersection-observer";
 import LpCard from "../components/LpCard/LpCard";
 import LpCardSkeletonList from "../components/LpCard/LpCardSkeletonList";
-import { SquarePlus } from "lucide-react";
 import LpCreateModal from "../components/LpCreateModal.tsx";
 
 const Homepage = () => {
@@ -54,14 +53,16 @@ const Homepage = () => {
         handleOrderChange={handleOrderChange}
       />
 
-      <button
-        className="hover:cursor-pointer ml-5"
-        onClick={() => {
-          setIsModalOpen(true);
-        }}
-      >
-        <SquarePlus color={"black"} fill={"transparent"} />
-      </button>
+      <div className="flex justify-end mb-5">
+        <button
+          className="hover:cursor-pointer add-lp-button"
+          onClick={() => {
+            setIsModalOpen(true);
+          }}
+        >
+          Add LP
+        </button>
+      </div>
 
       {isModalOpen && (
         <LpCreateModal
