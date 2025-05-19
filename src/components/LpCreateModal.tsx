@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { X } from "lucide-react";
 import usePostLp from "../hooks/mutation/usePostLp";
+import { postImage } from "../apis/lp";
 
 interface LpCreateModalProps {
   isOpen: boolean;
@@ -8,7 +9,10 @@ interface LpCreateModalProps {
 }
 
 const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
-  const [imageSrc, setImageSrc] = useState("/images/me-again-cover.jpeg");
+  const [thumbnailPreview, setThumbnailPreview] = useState(
+    "/images/me-again-cover.jpeg"
+  );
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageClick = () => {
@@ -21,7 +25,8 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
 
     if (file) {
       const newImageUrl = URL.createObjectURL(file);
-      setImageSrc(newImageUrl);
+      setThumbnailPreview(newImageUrl);
+      setThumbnailFile(file); // 파일 저장
     }
   };
 
@@ -43,34 +48,47 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
 
   const { mutate, isPending } = usePostLp();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    mutate(
-      {
-        title,
-        content,
-        thumbnail,
-        tags,
-        published: true,
-      },
-      {
-        onSuccess: () => {
-          alert("LP 등록 성공");
-          setTitle("");
-          setContent("");
-          setThumbnail("");
-          setTags([]);
-        },
-        onError: (error) => {
-          console.error("LP 등록 실패", error);
-        },
+    try {
+      let uploadedUrl = "";
+
+      if (thumbnailFile) {
+        uploadedUrl = await postImage(thumbnailFile);
+      } else {
+        uploadedUrl = "/images/me-again-cover.jpeg";
       }
-    );
+
+      mutate(
+        {
+          title,
+          content,
+          thumbnail: uploadedUrl, // 업로드된 URL을 thumbnail로
+          tags,
+          published: true,
+        },
+        {
+          onSuccess: () => {
+            alert("LP 등록 성공");
+            setTitle("");
+            setContent("");
+            setThumbnailFile(null);
+            setThumbnailPreview("/images/me-again-cover.jpeg");
+            setTags([]);
+            onClose();
+          },
+          onError: (error) => {
+            console.error("LP 등록 실패", error);
+          },
+        }
+      );
+    } catch (error) {
+      console.error("이미지 업로드 실패", error);
+    }
   };
 
   if (!isOpen) return null;
@@ -96,7 +114,7 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
             className="modal-img hover:cursor-pointer"
             onClick={handleImageClick}
           >
-            <img src={imageSrc} />
+            <img src={thumbnailPreview} />
           </div>
 
           <input

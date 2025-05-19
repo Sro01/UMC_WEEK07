@@ -6,6 +6,8 @@ import {
   ResponseLpDetailDto,
   ResponseLikeLpDto,
 } from "../types/lp";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { LOCAL_STORAGE_KEY } from "../constants/key";
 
 export const getLpList = async (
   paginationDto: PaginationDto
@@ -47,4 +49,21 @@ export const postLp = async (data: NewLpDetail) => {
   console.log("New LP data", data);
   const response = await axiosInstance.post("/v1/lps", data); // 실제 API 경로로 변경
   return response.data;
+};
+
+export const postImage = async (file: File): Promise<string> => {
+  const { getItem } = useLocalStorage(LOCAL_STORAGE_KEY.accessToken);
+  const accessToken = getItem();
+  const formData = new FormData();
+  formData.append("file", file);
+
+  let response;
+
+  if (accessToken) {
+    response = await axiosInstance.post("/v1/uploads/public", formData);
+  } else {
+    response = await axiosInstance.post("/v1/uploads", formData);
+  }
+
+  return response.data.data.imageUrl; // 응답에서 imageUrl 추출
 };
