@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { X } from "lucide-react";
 import usePostLp from "../hooks/mutation/usePostLp";
 import { postImage } from "../apis/lp";
+import { useAuth } from "../context/AuthContext";
 
 interface LpCreateModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface LpCreateModalProps {
 }
 
 const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
+  const { accessToken } = useAuth();
   const [thumbnailPreview, setThumbnailPreview] = useState(
     "/images/me-again-cover.jpeg"
   );
@@ -58,7 +60,7 @@ const LpCreateModal: React.FC<LpCreateModalProps> = ({ isOpen, onClose }) => {
       let uploadedUrl = "";
 
       if (thumbnailFile) {
-        uploadedUrl = await postImage(thumbnailFile);
+        uploadedUrl = await postImage(thumbnailFile, accessToken);
       } else {
         uploadedUrl = "/images/me-again-cover.jpeg";
       }

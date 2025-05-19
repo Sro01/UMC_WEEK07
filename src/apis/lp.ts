@@ -6,7 +6,6 @@ import {
   ResponseLpDetailDto,
   ResponseLikeLpDto,
 } from "../types/lp";
-import { useAuth } from "../context/AuthContext";
 
 export const getLpList = async (
   paginationDto: PaginationDto
@@ -50,20 +49,17 @@ export const postLp = async (data: NewLpDetail) => {
   return response.data;
 };
 
-export const postImage = async (file: File): Promise<string> => {
-  const accessToken = useAuth();
+export const postImage = async (
+  file: File,
+  accessToken?: string
+): Promise<string> => {
   const formData = new FormData();
   formData.append("file", file);
 
-  let response;
+  const url = accessToken ? "/v1/uploads/public" : "/v1/uploads";
 
-  if (accessToken) {
-    response = await axiosInstance.post("/v1/uploads/public", formData);
-  } else {
-    response = await axiosInstance.post("/v1/uploads", formData);
-  }
-
-  return response.data.data.imageUrl; // 응답에서 imageUrl 추출
+  const response = await axiosInstance.post(url, formData);
+  return response.data.data.imageUrl;
 };
 
 export const patchLp = async ({ lpId, data }: { lpId: number; data: any }) => {
